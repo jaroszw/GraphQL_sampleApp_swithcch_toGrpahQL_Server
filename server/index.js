@@ -1,7 +1,5 @@
 const { ApolloServer, gql } = require("apollo-server");
-const { collections, items } = require("./db");
-
-const counter = { id: 1, count: 0 };
+const { collections, items, counter } = require("./db");
 
 const typeDefs = gql`
   type Collection {
@@ -65,8 +63,9 @@ const resolvers = {
 
   Mutation: {
     addCount: (parent, args, ctx) => {
-      console.log(counter.count);
-      return (counter.count = counter.count + args.count);
+      const newCounter = { ...counter, count: counter.count + args.count };
+      console.log(args);
+      return newCounter;
     },
   },
 };
@@ -74,7 +73,7 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: { collections, items },
+  context: { collections, items, counter },
 });
 
 server.listen().then(({ url }) => {

@@ -21,6 +21,8 @@ const collections = [
   },
 ];
 
+const counter = { id: 1, count: 0 };
+
 const items = [
   {
     id: 1,
@@ -269,4 +271,4 @@ const items = [
   },
 ];
 
-module.exports = { collections, items };
+module.exports = { collections, items, counter };
